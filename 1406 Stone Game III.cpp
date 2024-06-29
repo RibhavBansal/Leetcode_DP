@@ -11,7 +11,7 @@ public:
         dp[i] = result;
         return result;
     }
-     
+
     string stoneGameIII(vector<int>& piles) {
         if (piles.empty()) return 0;
         vector<int> dp(piles.size(),INT_MIN);
