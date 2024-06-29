@@ -4,7 +4,7 @@ public:
         if(j >= b.size()){
             return 1;
         }
-
+        
         if(i >= a.size()){
             return 0;
         }
