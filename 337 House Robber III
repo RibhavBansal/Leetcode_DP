@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    map<pair<TreeNode*,bool>, int> memo;
+    int s(TreeNode* r, bool f){
+        if(!r) return 0;
+        if(!r->left && !r->right){
+            if(f) return r->val;
+            return 0;
+        }
+        if(memo.find({r,f}) != memo.end()){
+            return memo[{r,f}];
+        }
+
+        int a = 0, b = 0;
+        if(f){
+            a = r->val;
+            if(r->left)
+                a += s(r->left,false) ;
+            if(r->right)
+                a += s(r->right,false);
+        }
+        b = 0;
+        if(r->left)
+            b += s(r->left,true);
+        if(r->right)
+            b += s(r->right,true);
+        return memo[{r,f}] = max(a,b);
+    }
+
+    int rob(TreeNode* r) {
+        memo.clear();
+        return s(r,true);
+    }
+};
